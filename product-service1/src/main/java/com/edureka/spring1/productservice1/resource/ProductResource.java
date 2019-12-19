@@ -19,7 +19,7 @@ public class ProductResource {
     ProductService productService;
 
     @PostMapping()
-    @RequestMapping(path = "/addProd", produces = APPLICATION_JSON_VALUE,
+    @RequestMapping(path = "/product", produces = APPLICATION_JSON_VALUE,
     consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> saveProduct(ProductDTO productDTO){
         boolean saved = productService.save(productDTO);

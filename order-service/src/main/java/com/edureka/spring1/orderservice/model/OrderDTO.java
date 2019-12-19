@@ -3,6 +3,8 @@ package com.edureka.spring1.orderservice.model;
 
 import lombok.*;
 
+import javax.persistence.Embeddable;
+
 @Builder
 @Data
 @NoArgsConstructor
@@ -18,7 +20,14 @@ public class OrderDTO {
 
     ProductDetails productDetails;
 
-    private class ProductDetails {
+    @Embeddable
+    @Builder
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    @EqualsAndHashCode
+    public static class ProductDetails {
         Integer id;
 
         String name;

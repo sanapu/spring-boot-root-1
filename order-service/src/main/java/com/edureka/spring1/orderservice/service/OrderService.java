@@ -14,10 +14,13 @@ public class OrderService {
 
     public boolean saveOrder(OrderDTO orderDTO){
         Order order = Order.builder().quantity(orderDTO.getQuantity())
-                .address(orderDTO.getAddress())
-              //  .productDetail(orderDTO.getProductDetails())
-                .userId(orderDTO.getUserId())
-                .build();
+                            .address(orderDTO.getAddress())
+                            .productDetail(Order.ProductDetail.builder()
+                                                .id(orderDTO.getProductDetails().getId())
+                                                .name(orderDTO.getProductDetails().getName())
+                                                .description(orderDTO.getProductDetails().getDescription()).build())
+                            .userId(orderDTO.getUserId())
+                            .build();
 
         Order saved = orderRepository.save(order);
 
