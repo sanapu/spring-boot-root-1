@@ -14,6 +14,7 @@ public class ProductService {
     ProductRepository productRepository;
 
     public boolean save(ProductDTO productDTO) {
+        System.out.println("service  productDTO:  "+productDTO);
         // conver this product DTO into product DAO
         Product product = Product.builder()
                 .name(productDTO.getName())
@@ -22,10 +23,14 @@ public class ProductService {
 
        // Product product = null ; // TODO convert productDTO into Product
         Product saved = productRepository.save(product);
-
+        System.out.println("saved service:  "+saved);
 
         return saved !=null;
 
+    }
+
+    public boolean isExists(String name){
+        return productRepository.findProductByName(name).isPresent();
     }
 
 }

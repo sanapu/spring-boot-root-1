@@ -5,10 +5,7 @@ import com.edureka.spring1.productservice1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -21,15 +18,17 @@ public class ProductResource {
     @PostMapping()
     @RequestMapping(path = "/product", produces = APPLICATION_JSON_VALUE,
     consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> saveProduct(ProductDTO productDTO){
+    public ResponseEntity<Boolean> saveProduct(@RequestBody  ProductDTO productDTO){
+        System.out.println(" productDTO:  "+productDTO);
         boolean saved = productService.save(productDTO);
         if(!saved){
             throw new ProductCreationExceptionFailure();
         }
-
+        System.out.println("saved:  "+saved);
         //return saved; // 201 ok staus
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
 
 
     @GetMapping
@@ -40,6 +39,17 @@ public class ProductResource {
         //return saved; // 201 ok staus
         return "Hello Product service";
     }
+
+    @GetMapping
+    @RequestMapping(path = "/product/isexist")
+   // @RequestMapping("/isExist")
+    public Boolean isExists(@RequestParam String name){
+    System.out.println("---- "+productService.isExists(name));
+
+        //return saved; // 201 ok staus
+        return productService.isExists(name);
+    }
+
 
     private class ProductCreationExceptionFailure extends RuntimeException {
     }

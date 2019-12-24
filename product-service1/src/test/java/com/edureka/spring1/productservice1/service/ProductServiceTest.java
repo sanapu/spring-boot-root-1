@@ -26,7 +26,7 @@ class ProductServiceTest {
     @Test
     public void shouldSaveProductDTO(){
         ProductDTO product = ProductDTO.builder()
-                .id(1L)
+               // .id(1L)
                 .name("Iphone")
                 .description("Iphone Screen phone")
                 .build();

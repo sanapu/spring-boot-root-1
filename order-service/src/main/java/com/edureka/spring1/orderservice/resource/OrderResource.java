@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -21,11 +22,23 @@ public class OrderResource {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @PostMapping
     @RequestMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> placeOrder(@RequestBody OrderDTO orderDTO){
+        System.out.println(" orderDTO:  "+orderDTO.toString());
+        ResponseEntity<Boolean> forEntity = restTemplate.getForEntity("http://product-service/product/isexist?name="+orderDTO.getProductDetails().getName(),Boolean.class);
+        System.out.println(" forEntity:  "+forEntity.toString());
 
-        Boolean saved = orderService.saveOrder(orderDTO);
+        Boolean saved = false;
+        if(forEntity.getBody()){
+            saved = orderService.saveOrder(orderDTO);
+        }
+
+       // Boolean saved = orderService.saveOrder(orderDTO);
+
         if(!saved){
             throw new OrderException();
         }
