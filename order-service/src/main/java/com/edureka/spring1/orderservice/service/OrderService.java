@@ -13,6 +13,9 @@ public class OrderService {
     OrderRepository orderRepository;
 
     public boolean saveOrder(OrderDTO orderDTO){
+
+        // transforming orderDTO into Order has to be done in separate class, method
+       //  Order order = new OrderTransformer().transform(orderDTO);
         Order order = Order.builder().quantity(orderDTO.getQuantity())
                             .address(orderDTO.getAddress())
                             .productDetail(Order.ProductDetail.builder()
@@ -25,5 +28,20 @@ public class OrderService {
         Order saved = orderRepository.save(order);
 
         return  saved!=null;
+    }
+
+
+    private class OrderTransformer{
+        public Order transform(OrderDTO orderDTO){
+            Order order = Order.builder().quantity(orderDTO.getQuantity())
+                    .address(orderDTO.getAddress())
+                    .productDetail(Order.ProductDetail.builder()
+                            .id(orderDTO.getProductDetails().getId())
+                            .name(orderDTO.getProductDetails().getName())
+                            .description(orderDTO.getProductDetails().getDescription()).build())
+                    .userId(orderDTO.getUserId())
+                    .build();
+            return order;
+        }
     }
 }
