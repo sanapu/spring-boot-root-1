@@ -9,6 +9,10 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
+// this is the gateway
+// all the calls to product/order service are directed to this gateway service
+// this is done using zuul
+
 public class EdgeServiceApplication {
 
 	public static void main(String[] args) {
