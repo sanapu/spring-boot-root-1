@@ -3,7 +3,6 @@ package com.edureka.spring1.orderservice.resource;
 
 import com.edureka.spring1.orderservice.model.OrderDTO;
 import com.edureka.spring1.orderservice.service.OrderService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
