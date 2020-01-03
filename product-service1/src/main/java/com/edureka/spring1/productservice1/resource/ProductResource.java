@@ -2,6 +2,7 @@ package com.edureka.spring1.productservice1.resource;
 
 import com.edureka.spring1.productservice1.model.ProductDTO;
 import com.edureka.spring1.productservice1.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@Slf4j
 public class ProductResource {
 
     @Autowired
@@ -19,6 +21,7 @@ public class ProductResource {
     @RequestMapping(path = "/product", produces = APPLICATION_JSON_VALUE,
     consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> saveProduct(@RequestBody  ProductDTO productDTO){
+        log.info("Log starts here for Order service");
         System.out.println(" productDTO:  "+productDTO);
         boolean saved = productService.save(productDTO);
         if(!saved){

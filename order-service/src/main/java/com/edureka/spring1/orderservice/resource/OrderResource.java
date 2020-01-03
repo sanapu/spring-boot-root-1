@@ -3,6 +3,7 @@ package com.edureka.spring1.orderservice.resource;
 
 import com.edureka.spring1.orderservice.model.OrderDTO;
 import com.edureka.spring1.orderservice.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value =  "/order")
+@Slf4j
 public class OrderResource {
 
     @Autowired
@@ -27,6 +29,7 @@ public class OrderResource {
     @PostMapping
     @RequestMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> placeOrder(@RequestBody OrderDTO orderDTO){
+        log.info("Log starts here for Order service");
         System.out.println(" orderDTO:  "+orderDTO.toString());
         ResponseEntity<Boolean> forEntity = restTemplate.getForEntity("http://product-service/product/isexist?name="+orderDTO.getProductDetails().getName(),Boolean.class);
         System.out.println(" forEntity:  "+forEntity.toString());
