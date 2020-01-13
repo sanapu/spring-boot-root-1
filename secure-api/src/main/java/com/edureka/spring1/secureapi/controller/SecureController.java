@@ -13,4 +13,5 @@ public class SecureController {
     public String secureHello() {
         return "secured API";
     }
+    // TODO create more methods here to chck how security works and get access to different URLs
 }
